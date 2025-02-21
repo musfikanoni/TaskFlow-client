@@ -1,2 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+.file-input {
+    --input-color: 
+    color-mix(in oklab, var(--color-base-content) 20%, #0000);
+}
