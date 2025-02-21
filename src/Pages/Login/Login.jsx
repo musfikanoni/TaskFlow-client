@@ -39,7 +39,7 @@ const Login = () => {
             console.log(user);
             Toast.fire({
                 icon: "success",
-                title: "Successfully Registered"
+                title: "Successfully Login"
               });
 
             navigate('/');

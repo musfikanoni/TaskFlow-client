@@ -55,7 +55,7 @@ const SignUp = () => {
                         reset();
                         Toast.fire({
                             icon: "success",
-                            title: "Successfully Registered"
+                            title: "Successfully Sign Up"
                           });
             
                         navigate('/');
