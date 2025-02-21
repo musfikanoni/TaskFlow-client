@@ -22,6 +22,18 @@ const SignUp = () => {
         formState: { errors },
       } = useForm();
 
+          const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+              }
+          });
+
       const onSubmit = data => {
         console.log(data)
         createUser(data.email, data.password)
@@ -41,26 +53,13 @@ const SignUp = () => {
                     if(res.data.insertedId){
                         console.log('user added')
                         reset();
-                        Swal.fire({
-                            title: "Sign Up Successful",
+                        Toast.fire({
                             icon: "success",
-                            showClass: {
-                                popup: `
-                                animate__animated
-                                animate__fadeInUp
-                                animate__faster
-                                `
-                            },
-                            hideClass: {
-                                popup: `
-                                animate__animated
-                                animate__fadeOutDown
-                                animate__faster
-                                `
-                            }
-                        });
+                            title: "Successfully Registered"
+                          });
+            
+                        navigate('/');
                     }
-                    navigate('/');
                 })
                 
             })
