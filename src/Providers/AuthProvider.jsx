@@ -1,11 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useEffect, useState } from "react";
 import {  createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged,  signInWithEmailAndPassword,  signInWithPopup, signOut, updateProfile } from "firebase/auth";
-// import { app } from "../firebase/firebase.init";
+import { app } from "../firebase/firebase.init";
 // import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
-// const auth = getAuth(app);
+const auth = getAuth(app);
 const AuthProvider = ({children}) => {
 
     const [user, setUser] = useState(null);

@@ -5,6 +5,11 @@ import { useContext, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { AuthContext } from '../../Providers/AuthProvider';
 import Swal from 'sweetalert2';
+import SocialLogin from '../../SocialLogin/SocialLogin';
+
+
+// const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+// const image_hosting_api = `https://api.imgbb.com/1/upload?keey=${image_hosting_key}`
 
 const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -79,8 +84,8 @@ const SignUp = () => {
                                             {/* photoURL */}
                                             <label className="fieldset-label">Choose Photo</label>
                                             <input type="file" className="file-input file-input-success w-full"
-                                            {...register("image", { required: true })} />
-                                            {errors.image && <span className="text-red-600">Image is required</span>} 
+                                            {...register("image")} />
+                                            {/* {errors.image && <span className="text-red-600">Image is required</span>}  */}
 
                                             {/* name */}
                                             <label className="fieldset-label">Name</label>
@@ -117,7 +122,7 @@ const SignUp = () => {
                                         <button className="btn bg-emerald-500 font-bold mt-4">Sign Up</button>
                                         </fieldset>
                                         <div className="divider">OR</div>
-                                        <button className="btn w-full bg-emerald-500 font-bold">Continue with Google</button>
+                                       <SocialLogin></SocialLogin>
                                         <Link to='/login'>
                                             <p className='pt-2 text-emerald-500'>Go to Login</p>
                                         </Link>
