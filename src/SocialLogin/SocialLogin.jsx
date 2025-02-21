@@ -1,13 +1,14 @@
 
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import useAuth from "../hooks/useAuth";
+import useAxiosPublic from '../hooks/useAxiosPublic';
 
 
 const SocialLogin = () => {
     const{goolgeSignIn} = useAuth();
-    // const axiosPublic = useAxiosPublic();
-    // const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
 
     const handleGoogleSingIn = () => {
         goolgeSignIn()
@@ -19,11 +20,11 @@ const SocialLogin = () => {
                 photoURL: result.user?.photoURL
             }
             console.log(userInfo)
-            // axiosPublic.post('/users', userInfo)
-            // .then(res =>{
-            //     console.log(res.data)
-            //     navigate('/')
-            // })
+            axiosPublic.post('/users', userInfo)
+            .then(res =>{
+                console.log(res.data)
+                navigate('/')
+            })
         })
     }
     return (

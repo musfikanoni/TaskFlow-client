@@ -1,17 +1,16 @@
 
 import { FaTasks } from 'react-icons/fa';
-import { FaRegCircleUser} from 'react-icons/fa6';
+import { FaUserLarge} from 'react-icons/fa6';
 import { IoTimeOutline } from 'react-icons/io5';
 import { LuClipboardCheck, LuClipboardPen } from 'react-icons/lu';
 import { NavLink} from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
+// import useAuth from '../../hooks/useAuth';
+import { useContext } from 'react';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 const SideBar = () => {
 
-    const {user} = useAuth();
-    const name = user.displayName;
-    // const photo = user.photoURL;
-    const email = user.email;
+    const {user} = useContext(AuthContext)
 
     return (
         <div className="flex">
@@ -30,14 +29,14 @@ const SideBar = () => {
 
                 <div className="flex flex-wrap justify-center gap-2">
                 <div className="avatar -mt-14">
-                    <div className="ring-primary ring-offset-base-100 w-32 rounded-full ring ring-offset-2">
-                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                    <div className="ring-emerald-500 ring-offset-base-100 w-32 rounded-full ring ring-offset-2">
+                        <img src={user?.photoURL} />
                     </div>
                 </div>
                 </div>
                 <div className="py-5">
-                    <h3 className="text-xl text-white text-center font-semibold">{name}</h3>
-                    <p className="text-center text-gray-100">{email}</p>
+                    <h3 className="text-xl text-white text-center font-semibold">{user?.displayName}</h3>
+                    <p className="text-center text-gray-100">{user?.email}</p>
                 </div>
 
                 
@@ -52,7 +51,7 @@ const SideBar = () => {
                                         isActive ? 'text-pcolor bg-gray-300 font-bold' : 'text-white'
                                     }`}
                                 >
-                                    <FaRegCircleUser className="text-3xl" />
+                                    <FaUserLarge className="text-3xl" />
                                     <span>Profile</span>
                                 </li>
                             )}

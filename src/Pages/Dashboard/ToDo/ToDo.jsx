@@ -1,9 +1,10 @@
+import AddTask from "../../Shared/AddTaskModal/AddTask";
 
 
 const ToDo = () => {
     return (
         <div>
-            To Do
+            <AddTask></AddTask>
         </div>
     );
 };

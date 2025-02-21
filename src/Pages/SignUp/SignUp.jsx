@@ -6,15 +6,17 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { AuthContext } from '../../Providers/AuthProvider';
 import Swal from 'sweetalert2';
 import SocialLogin from '../../SocialLogin/SocialLogin';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 
-// const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-// const image_hosting_api = `https://api.imgbb.com/1/upload?keey=${image_hosting_key}`
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
 const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const {createUser, updateUserProfile} = useContext(AuthContext);
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
 
     const {
         register,
@@ -34,38 +36,61 @@ const SignUp = () => {
               }
           });
 
-      const onSubmit = data => {
-        console.log(data)
-        createUser(data.email, data.password)
-        .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
-            updateUserProfile(data.name, data.photoURL)
-            .then(() => {
-                const userInfo = {
-                    name: data.name,
-                    email: data.email,
-                    photoURL: data.photoURL
-                }
-                console.log(userInfo)
-                // axiosPublic.post('/users', userInfo)
-                .then(res =>{
-                    if(res.data.insertedId){
-                        console.log('user added')
+          const onSubmit = async (data) => {
+            console.log(data);
+        
+            if (!data.image || data.image.length === 0) {
+                console.error("No image selected");
+                return;
+            }
+        
+            const imageFile = new FormData();
+            imageFile.append("image", data.image[0]);
+        
+            try {
+                // Upload image to ImgBB
+                const res = await axiosPublic.post(image_hosting_api, imageFile, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+        
+                if (res.data.success) {
+                    // Create user
+                    const createdUser = await createUser(data.email, data.password);
+                    console.log(createdUser);
+        
+                    // Update user profile
+                    await updateUserProfile(data.name, res.data.data.display_url);
+        
+                    const userInfo = {
+                        name: data.name,
+                        email: data.email,
+                        photoURL: res.data.data.display_url // ✅ Corrected photoURL handling
+                    };
+        
+                    // Store user info in database
+                    const response = await axiosPublic.post('/users', userInfo);
+        
+                    if (response.data.insertedId) {
+                        console.log('User added to database');
                         reset();
                         Toast.fire({
                             icon: "success",
-                            title: "Successfully Sign Up"
-                          });
-            
+                            title: "Successfully Signed Up"
+                        });
+        
                         navigate('/');
                     }
-                })
-                
-            })
-            .catch(error => console.log(error));
-        })
-    }
+                } else {
+                    console.error("Image upload failed");
+                }
+            } catch (error) {
+                console.error("Error during signup:", error);
+            }
+        };
+        
+        
 
     return (
                 <div>
@@ -82,9 +107,9 @@ const SignUp = () => {
                                         <fieldset className="fieldset">
                                             {/* photoURL */}
                                             <label className="fieldset-label">Choose Photo</label>
-                                            <input type="file" className="file-input file-input-success w-full"
+                                            <input type="file" {...register("image", { required: true })} className="file-input file-input-success w-full"
                                             {...register("image")} />
-                                            {/* {errors.image && <span className="text-red-600">Image is required</span>}  */}
+                                            {errors.image && <span className="text-red-600">Image is required</span>} 
 
                                             {/* name */}
                                             <label className="fieldset-label">Name</label>

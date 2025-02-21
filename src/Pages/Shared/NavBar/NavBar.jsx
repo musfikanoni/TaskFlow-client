@@ -15,7 +15,7 @@ const NavBar = () => {
 
     return (
         <div>
-            <div className="navbar bg-base-100 shadow-sm py-6">
+            <div className="navbar bg-base-100 shadow-lg py-6">
             <div className="flex-1">
                 <Link to="/" className="btn btn-ghost text-xl">TaskFlow</Link>
             </div>
@@ -48,7 +48,7 @@ const NavBar = () => {
                                     <div className="w-10 rounded-full">
                                     <img
                                         alt="Tailwind CSS Navbar component"
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                        src={user.photoURL} />
                                     </div>
                                 </div>
                                 <ul
