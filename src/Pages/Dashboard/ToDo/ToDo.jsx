@@ -4,7 +4,7 @@ import TaskList from "../../Shared/TaskList/TaskList";
 
 const ToDo = () => {
     return (
-        <div>
+        <div className="pt-20">
             <AddTask></AddTask>
             <TaskList></TaskList>
         </div>
