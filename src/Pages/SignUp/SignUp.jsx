@@ -48,7 +48,7 @@ const SignUp = () => {
             imageFile.append("image", data.image[0]);
         
             try {
-                // Upload image to ImgBB
+      
                 const res = await axiosPublic.post(image_hosting_api, imageFile, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -66,10 +66,10 @@ const SignUp = () => {
                     const userInfo = {
                         name: data.name,
                         email: data.email,
-                        photoURL: res.data.data.display_url // ✅ Corrected photoURL handling
+                        photoURL: res.data.data.display_url 
                     };
         
-                    // Store user info in database
+                
                     const response = await axiosPublic.post('/users', userInfo);
         
                     if (response.data.insertedId) {

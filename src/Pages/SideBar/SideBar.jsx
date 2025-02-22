@@ -15,17 +15,9 @@ const SideBar = () => {
     return (
         <div className="flex">
         {/* Dashboard sidebar */}
-        {/* <NavBar></NavBar> */}
+
         <div className="w-72 min-h-screen mt-16 bg-emerald-500">
             <ul className="">
-                {/* <li>
-                    <Link to="/">
-                        <div className="flex gap-3 items-center pb-5 p-7">
-                            <img className="h-12 bg-white rounded-full" src={logo} alt="" />
-                            <h3 className="text-3xl text-white font-bold">Adoptopia</h3>
-                        </div>
-                    </Link>
-                </li> */}
 
                 <div className="flex flex-wrap justify-center gap-2">
                 <div className="avatar -mt-14">
