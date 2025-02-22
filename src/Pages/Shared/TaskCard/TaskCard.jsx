@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { FiEdit } from "react-icons/fi";
 import useTask from "../../../hooks/useTask";
+import UpdateModal from "../UpdateModal/UpdateModal";
 
 const TaskCard = ({task}) => {
     const {_id, title, description, category, timestamp} = task;
@@ -43,9 +44,9 @@ const TaskCard = ({task}) => {
             <div className="card bg-base-100 w-96 shadow-xl">
                 <div className="card-body">
                     <div className="flex justify-end gap-3">
-                        <button className="text-xl text-blue-950">
-                            <FiEdit />
-                        </button>
+                        
+                        <UpdateModal></UpdateModal>
+                        
                         <button className="flex justify-end text-xl text-red-400" onClick={() => handleDelete(_id)} >
                             <RiDeleteBin5Line />
                         </button>
