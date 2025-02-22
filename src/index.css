@@ -5,3 +5,11 @@
     --input-color: 
     color-mix(in oklab, var(--color-base-content) 20%, #0000);
 }
+
+.custom-toast {
+  z-index: 9999 !important; /* Ensure it appears above the modal */
+  top: 50% !important;  /* Position it vertically in the center */
+  left: 50% !important; /* Position it horizontally in the center */
+  transform: translate(-50%, -50%) !important; /* Adjust for exact center */
+}
+  

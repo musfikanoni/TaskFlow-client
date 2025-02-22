@@ -4,10 +4,28 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
+import { FaPlus } from "react-icons/fa6";
+import useTask from "../../../hooks/useTask";
 
 const AddTask = () => {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
+  const [,refetch] = useTask();
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    customClass: {
+      container: "custom-toast", 
+    },
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
 
   const {
     register,
@@ -23,7 +41,9 @@ const AddTask = () => {
   };
 
 
+
   const onSubmit = async (data) => {
+    
     const taskData = {
       task_id: uuidv4(),
       title: data.title,
@@ -38,11 +58,12 @@ const AddTask = () => {
 
       if (response.data.insertedId) {
         reset();
-        Swal.fire({
-          title: "Your task was added successfully!",
+        refetch();
+        Toast.fire({
           icon: "success",
-          draggable: true,
+          title: "Your task was added successfully!"
         });
+      
       }
     } catch (error) {
       console.error("Error adding task:", error);
@@ -63,7 +84,7 @@ const AddTask = () => {
           setTimestamp(generateTimestamp());
         }}
       >
-        Add Task
+       <FaPlus /> Add Task
       </button>
       <dialog id="my_modal_3" className="modal">
         <div className="modal-box">
